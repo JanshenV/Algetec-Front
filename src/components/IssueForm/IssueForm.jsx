@@ -80,7 +80,10 @@ export default function IssueForm({
     }, [errors]);
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="customIssueForm"
+        >
             <Input
                 type="text"
                 placeholder="Prioridade"
@@ -110,11 +113,11 @@ export default function IssueForm({
             />
 
             <select
-                className={`statusSelection ${inputsError.status ? 'error' : ''}`}
+                className='statusSelect'
                 onChange={(e) => handleData(e, "status")}
             >
                 <option value="">
-                    Selecione o Status
+                    Selecione Status
                 </option>
                 {
                     status.length &&

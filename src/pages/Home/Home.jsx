@@ -6,6 +6,7 @@ import { UserProfile } from '../../services/usersApi';
 
 //Components
 import Header from '../../components/Header';
+import IssueModal from '../../components/IssueModal';
 
 //React
 import { useState, useEffect } from 'react';
@@ -44,7 +45,9 @@ export default function Home() {
 
             <div className='issuesContainer'>
                 <div className="issuesFunctions">
-                    <div>
+                    <div
+                        onClick={() => setIssueModal(true)}
+                    >
                         Criar issue
                     </div>
                 </div>
@@ -54,6 +57,12 @@ export default function Home() {
                 </div>
             </div>
 
+            {
+                issueModal &&
+                <div className='modalContainer'>
+                    <IssueModal setIssueModal={setIssueModal} />
+                </div>
+            }
         </div>
     );
 };

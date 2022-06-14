@@ -4,14 +4,22 @@ import './IssueModal.css';
 //React
 import { useState } from 'react';
 
-//Props
-import PropTypes from 'prop-types';
-
 //Components
 import IssueForm from '../IssueForm';
 
-export default function IssueModal({
+//Props
+import PropTypes from 'prop-types';
+IssueModal.propTypes = {
+    setIssueModal: PropTypes.func
+};
 
+IssueModal.defaultProps = {
+    setIssueModal: () => null
+};
+
+
+export default function IssueModal({
+    setIssueModal
 }) {
     const [issueData, setIssueData] = useState({
         problema: '',
@@ -37,8 +45,6 @@ export default function IssueModal({
     async function handleSubmit(event) {
         event.prenvetDefault();
     };
-
-
 
     return (
         <div className='issueModalContainer'>
