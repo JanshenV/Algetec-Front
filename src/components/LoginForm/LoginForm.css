@@ -1,0 +1,24 @@
+.customLoginForm {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    height: 220px;
+}
+
+.customLoginForm button {
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgb(74, 192, 74);
+    color: rgb(231, 222, 222);
+    font-weight: bolder;
+    transition: 0.5s;
+}
+
+.customLoginForm button:hover {
+    background: rgb(231, 222, 222);
+    color: rgb(74, 192, 74);
+    transition: 0.5s;
+}

@@ -20,7 +20,11 @@ export default function LoginForm({
     handleData, handleSubmit
 }) {
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form
+            className='customLoginForm'
+            onSubmit={(e) => handleSubmit(e)}
+
+        >
             <Input
                 type="text"
                 placeholder="Insira seu Email"

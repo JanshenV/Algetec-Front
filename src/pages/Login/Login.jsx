@@ -49,16 +49,22 @@ export default function Login() {
     return (
         <div className='mainLoginContainer'>
             <div className="formLoginContainer">
+                <h2>
+                    Faça seu login
+                </h2>
                 <LoginForm
                     handleData={handleLoginData}
                     handleSubmit={handleLoginSubmit}
                 />
+
+                Não tem cadastro ?
                 <span
                     onClick={() => navigate('/signup')}
-                    style={{ cursor: 'pointer' }}
                 >
                     Cadastre-se.
                 </span>
+
+
             </div>
         </div>
     );

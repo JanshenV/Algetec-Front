@@ -15,7 +15,7 @@ Input.propTypes = {
 Input.defaultProps = {
     type: "text",
     placeholder: 'Insira Placeholder',
-    autoFocus: true,
+    autoFocus: false,
     onChange: () => null,
 };
 
@@ -25,6 +25,7 @@ export default function Input({
 }) {
     return (
         <input
+            className='customInput'
             type={type}
             value={value}
             placeholder={placeholder}
