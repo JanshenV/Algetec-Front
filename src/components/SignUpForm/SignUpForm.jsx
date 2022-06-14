@@ -37,7 +37,6 @@ export default function SignUpForm({
     useEffect(() => {
         function handleErrors() {
             const localErrors = errors;
-            console.log(errors);
             if (!errors) return setInputsError({
                 nickname: false,
                 email: false,
