@@ -2,15 +2,24 @@
 import './Header.css';
 
 //Icons
-import { UserCircleIcon } from '@heroicons/react/solid';
+import {
+    UserCircleIcon,
+    LogoutIcon
+} from '@heroicons/react/solid';
 
 export default function Header({
-    title,
+    title, username
 }) {
     return (
         <header className='headerMainContainer'>
             <h1>{title}</h1>
-            <UserCircleIcon className='userIcon' />
+            <div className="userProfileContainer">
+                <UserCircleIcon className='reactIcons' />
+                <span className='welcomeContainer'>
+                    Olá, {username ? username : 'Rare Beauty'}
+                </span>
+            </div>
+            <LogoutIcon className='reactIcons' />
         </header>
     );
 };
