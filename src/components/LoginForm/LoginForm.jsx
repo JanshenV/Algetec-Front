@@ -29,14 +29,12 @@ export default function LoginForm({
                 type="text"
                 placeholder="Insira seu Email"
                 autoFocus={true}
-                required={true}
                 onChange={(e) => handleData(e, "email")}
             />
 
             <Input
                 type="password"
                 placeholder="Insira sua senha."
-                required={true}
                 onChange={(e) => handleData(e, "senha")}
             />
 

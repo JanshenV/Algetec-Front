@@ -17,10 +17,13 @@ export default function Login() {
         email: '',
         senha: '',
     });
+    const [errors, setErrors] = useState('');
+
     const navigate = useNavigate();
 
     async function handleLoginData(event, field) {
         const inputValue = event.target.value;
+        setErrors('');
 
         setLoginData({
             ...loginData,
@@ -33,13 +36,14 @@ export default function Login() {
             email: '',
             senha: '',
         });
+        setErrors('');
     };
 
     async function handleLoginSubmit(event) {
         event.preventDefault();
         const { token, message } = await UserLogin(loginData);
 
-        if (message) return alert(message);
+        if (message) return setErrors(message);
 
         localStorage.setItem('algetecToken', token);
         handleClearAll();
@@ -52,6 +56,12 @@ export default function Login() {
                 <h2>
                     Faça seu login
                 </h2>
+                {
+                    errors &&
+                    <span className='error'>
+                        {errors}
+                    </span>
+                }
                 <LoginForm
                     handleData={handleLoginData}
                     handleSubmit={handleLoginSubmit}
@@ -59,12 +69,11 @@ export default function Login() {
 
                 Não tem cadastro ?
                 <span
+                    className='signupSpan'
                     onClick={() => navigate('/signup')}
                 >
                     Cadastre-se.
                 </span>
-
-
             </div>
         </div>
     );
