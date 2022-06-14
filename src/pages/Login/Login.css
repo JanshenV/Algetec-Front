@@ -18,14 +18,18 @@
     font-weight: 500;
 }
 
-.formLoginContainer span {
+.signupSpan {
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
         sans-serif;
     cursor: pointer;
     transition: 0.5s;
 }
 
-.formLoginContainer span:hover {
+.signupSpan:hover {
     color: blueviolet;
     transition: 0.5s;
+}
+
+.error {
+    color: red;
 }
