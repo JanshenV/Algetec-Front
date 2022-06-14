@@ -10,6 +10,7 @@ Input.propTypes = {
     autoFocus: PropTypes.bool,
     required: PropTypes.bool,
     onChange: PropTypes.func,
+    className: PropTypes.string
 };
 
 Input.defaultProps = {
@@ -21,11 +22,12 @@ Input.defaultProps = {
 
 export default function Input({
     type, value, placeholder,
-    autoFocus, required, onChange
+    autoFocus, required, onChange,
+    className
 }) {
     return (
         <input
-            className='customInput'
+            className={`customInput ${className}`}
             type={type}
             value={value}
             placeholder={placeholder}

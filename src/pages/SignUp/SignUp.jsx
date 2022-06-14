@@ -31,6 +31,7 @@ export default function SignUp() {
 
     async function handleSignUpData(event, field) {
         const inputValue = event.target.value;
+        setErrors('');
 
         setSignUpData({
             ...signUpData,
@@ -45,6 +46,7 @@ export default function SignUp() {
             senha: '',
             nivel: ''
         });
+        setErrors('');
     };
 
     async function handleSignUpSubmit(event) {
@@ -52,17 +54,24 @@ export default function SignUp() {
 
         const { message } = await UserSignUp(signUpData);
 
-        if (!message.includes('sucesso')) setErrors(message);
-        alert(errors);
+        if (!message.includes('sucesso')) return setErrors(message);
+        handleClearAll();
     };
 
     return (
         <div className='mainSignUpContainer'>
             <h2>Cadastre-se</h2>
+            {
+                errors &&
+                <span className='errorSpan'>
+                    {errors}
+                </span>
+            }
             <div className="formSignUpContainer">
                 <SignUpForm
                     handleData={handleSignUpData}
                     handleSubmit={handleSignUpSubmit}
+                    errors={errors}
                     levels={levels}
                 />
                 Já tem cadastro ?
