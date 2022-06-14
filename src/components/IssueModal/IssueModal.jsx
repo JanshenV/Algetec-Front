@@ -41,18 +41,38 @@ export default function IssueModal({
         });
     };
 
-
     async function handleSubmit(event) {
         event.prenvetDefault();
     };
 
+    function handleCloseModal() {
+        setIssueData({
+            problema: '',
+            versao: '',
+            descricao: '',
+            prioridade: '',
+            status: ''
+        });
+        setErrors('');
+        setIssueModal(false);
+    };
+
     return (
-        <div className='issueModalContainer'>
-            <IssueForm
-                handleSubmit={handleSubmit}
-                handleData={handleIssueData}
-                errors={errors}
-            />
+        <div className='issueModalMainContainer'>
+            <div className="formIssueContainer">
+                <h2>Cadastre uma Issue</h2>
+                <IssueForm
+                    handleSubmit={handleSubmit}
+                    handleData={handleIssueData}
+                    errors={errors}
+                />
+                <button
+                    onClick={handleCloseModal}
+                    className="buttonCloseModal"
+                >
+                    Cancelar
+                </button>
+            </div>
         </div>
     );
 };
