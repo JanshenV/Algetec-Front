@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../../components/SignUpForm';
 
 //Api
-import { UserSignUp } from '../../services/api';
+import { UserSignUp } from '../../services/usersApi';
 
 export default function SignUp() {
     const [signUpData, setSignUpData] = useState({

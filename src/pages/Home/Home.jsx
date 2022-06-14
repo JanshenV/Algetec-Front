@@ -2,7 +2,7 @@
 import './Home.css';
 
 //Api
-import { UserProfile } from '../../services/api';
+import { UserProfile } from '../../services/usersApi';
 
 //Components
 import Header from '../../components/Header';
@@ -13,8 +13,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const [userData, setUserData] = useState('');
+    const [issueModal, setIssueModal] = useState(false);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const token = localStorage.getItem('algetecToken');
