@@ -1,15 +1,15 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-async function UserSignUp(UserData) {
+export async function UserSignUp(UserData) {
     try {
         const requestOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'Application/json'
+                'Content-Type': 'Application/json',
             },
             body: JSON.stringify(UserData)
         };
-        const serverRequest = await fetch(`${BASE_URL}/usuarios`, requestOptions);
+        const serverRequest = await fetch(`${BASE_URL}usuarios/signup`, requestOptions);
         const { message } = await serverRequest.json();
 
         return { message };
@@ -17,5 +17,7 @@ async function UserSignUp(UserData) {
         return error;
     };
 };
+
+
 
 

@@ -7,12 +7,15 @@ import { useState } from 'react';
 //Components
 import SignUpForm from '../../components/SignUpForm';
 
+//Api
+import { UserSignUp } from '../../services/api';
+
 export default function SignUp() {
     const [signUpData, setSignUpData] = useState({
         nickname: '',
         email: '',
         senha: '',
-        level: ''
+        nivel: ''
     });
 
 
@@ -36,12 +39,15 @@ export default function SignUp() {
             nickname: '',
             email: '',
             senha: '',
-            level: ''
+            nivel: ''
         });
     };
 
     async function handleSignUpSubmit(event) {
         event.preventDefault();
+
+        const { message } = await UserSignUp(signUpData);
+        console.log(message);
     };
 
     return (

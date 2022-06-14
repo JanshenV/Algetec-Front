@@ -32,7 +32,6 @@ export default function Login() {
 
     async function handleLoginSubmit(event) {
         event.preventDefault();
-        console.log(loginData)
     };
     console.log(process.env.REACT_APP_BASE_URL)
     return (

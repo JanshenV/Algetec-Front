@@ -46,7 +46,7 @@ export default function SignUpForm({
             />
 
             <select
-                onChange={(e) => handleData(e, "level")}
+                onChange={(e) => handleData(e, "nivel")}
                 required
             >
                 <option value="">
