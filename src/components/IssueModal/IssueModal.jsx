@@ -7,6 +7,9 @@ import { useState } from 'react';
 //Props
 import PropTypes from 'prop-types';
 
+//Components
+import IssueForm from '../IssueForm';
+
 export default function IssueModal({
 
 }) {
@@ -19,6 +22,7 @@ export default function IssueModal({
     });
 
     const [errors, setErrors] = useState('');
+    const [issueComplete, setIssueComplete] = useState(false);
 
     async function handleIssueData(event, field) {
         const inputValue = event.target.value;
@@ -27,7 +31,7 @@ export default function IssueModal({
             ...issueData,
             [field]: inputValue
         });
-    }
+    };
 
 
     async function handleSubmit(event) {
@@ -38,7 +42,11 @@ export default function IssueModal({
 
     return (
         <div className='issueModalContainer'>
-
+            <IssueForm
+                handleSubmit={handleSubmit}
+                handleData={handleIssueData}
+                errors={errors}
+            />
         </div>
     );
 };

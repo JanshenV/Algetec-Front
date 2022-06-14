@@ -31,6 +31,16 @@ export default function IssueForm({
         status: false
     });
 
+    const status = [
+        'Aprovado',
+        'Reprovado',
+        'Novo',
+        'Não será removido',
+        'Duplicado',
+        'Não é erro',
+        'Resolvido'
+    ];
+
     useEffect(() => {
         function handleErrors() {
             const localErrors = errors;
@@ -99,13 +109,27 @@ export default function IssueForm({
                 className={inputsError.problema ? 'error' : ''}
             />
 
-            <Input
-                type="text"
-                placeholder="Status"
-                autoFocus={true}
+            <select
+                className={`statusSelection ${inputsError.status ? 'error' : ''}`}
                 onChange={(e) => handleData(e, "status")}
-                className={inputsError.status ? 'error' : ''}
-            />
+            >
+                <option value="">
+                    Selecione o Status
+                </option>
+                {
+                    status.length &&
+                    status.map((option, index) => {
+                        return (
+                            <option
+                                value={option}
+                                key={index}
+                            >
+                                {option}
+                            </option>
+                        );
+                    })
+                }
+            </select>
 
             <button>
                 Confirmar
