@@ -15,10 +15,12 @@ export default function Home() {
     const [userData, setUserData] = useState('');
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const token = localStorage.getItem('algetecToken');
         if (!token) return navigate('/login');
 
+        if (userData) return;
         async function requestUserData() {
             const { user, message } = await UserProfile(token);
 
@@ -26,7 +28,7 @@ export default function Home() {
                 if (message.includes('jwt malformed') || message.includes('jwt expired')) return navigate('/login');
             };
 
-            setUserData(user);
+            setUserData({ ...user });
         };
         requestUserData();
     }, [userData]);
@@ -35,6 +37,7 @@ export default function Home() {
         <div>
             <Header
                 title="Algetec"
+                userData={userData}
             />
         </div>
     );
