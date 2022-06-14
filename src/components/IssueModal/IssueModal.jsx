@@ -29,6 +29,16 @@ export default function IssueModal({
         status: ''
     });
 
+    const statuses = [
+        'Aprovado',
+        'Reprovado',
+        'Novo',
+        'Não será removido',
+        'Duplicado',
+        'Não é erro',
+        'Resolvido'
+    ];
+
     const [errors, setErrors] = useState('');
     const [issueComplete, setIssueComplete] = useState(false);
 
@@ -65,6 +75,7 @@ export default function IssueModal({
                     handleSubmit={handleSubmit}
                     handleData={handleIssueData}
                     errors={errors}
+                    statuses={statuses}
                 />
                 <button
                     onClick={handleCloseModal}

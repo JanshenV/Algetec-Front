@@ -12,15 +12,18 @@ import PropTypes from 'prop-types';
 IssueForm.propTypes = {
     handleSubmit: PropTypes.func,
     handleData: PropTypes.func,
-    errors: PropTypes.string
+    errors: PropTypes.string,
+    statuses: PropTypes.arrayOf(PropTypes.string)
 };
 IssueForm.defaultProps = {
     handleSubmit: () => null,
-    handleData: () => null
+    handleData: () => null,
+    statuses: []
 };
 
 export default function IssueForm({
-    handleSubmit, handleData, errors
+    handleSubmit, handleData, errors,
+    statuses
 }) {
 
     const [inputsError, setInputsError] = useState({
@@ -28,18 +31,7 @@ export default function IssueForm({
         descricao: false,
         versao: false,
         problema: false,
-        status: false
     });
-
-    const status = [
-        'Aprovado',
-        'Reprovado',
-        'Novo',
-        'Não será removido',
-        'Duplicado',
-        'Não é erro',
-        'Resolvido'
-    ];
 
     useEffect(() => {
         function handleErrors() {
@@ -69,11 +61,6 @@ export default function IssueForm({
             if (localErrors.includes('problema')) return setInputsError({
                 ...inputsError,
                 problema: true
-            });
-
-            if (localErrors.includes('status')) return setInputsError({
-                ...inputsError,
-                status: true
             });
         };
         handleErrors();
@@ -120,8 +107,8 @@ export default function IssueForm({
                     Selecione Status
                 </option>
                 {
-                    status.length &&
-                    status.map((option, index) => {
+                    statuses.length &&
+                    statuses.map((option, index) => {
                         return (
                             <option
                                 value={option}
