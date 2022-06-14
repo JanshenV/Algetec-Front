@@ -34,7 +34,7 @@ export default function Login() {
         event.preventDefault();
         console.log(loginData)
     };
-
+    console.log(process.env.REACT_APP_BASE_URL)
     return (
         <div className='mainLoginContainer'>
             <div className="formLoginContainer">
