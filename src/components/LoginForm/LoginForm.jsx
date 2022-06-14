@@ -2,7 +2,7 @@
 import './LoginForm.css';
 
 //Components
-import Input from '../Input/Input';
+import Input from '../Input';
 
 //Props
 import PropTypes from 'prop-types';
@@ -32,7 +32,7 @@ export default function LoginForm({
             <Input
                 type="password"
                 placeholder="Escolha uma senha."
-                required
+                required={true}
                 onChange={(e) => handleData(e, "senha")}
             />
 
