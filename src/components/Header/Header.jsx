@@ -3,6 +3,7 @@ import './Header.css';
 
 //React
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 //Icons
 import {
@@ -18,6 +19,8 @@ export default function Header({
         profile: false,
         logout: false
     });
+
+    const navigate = useNavigate();
 
     function handleOnHover(field) {
         if (field === 'profile') {
@@ -38,9 +41,16 @@ export default function Header({
         };
     };
 
+    function handleLogout() {
+        localStorage.removeItem('algetecToken');
+        navigate('/login');
+    };
+
     return (
         <header className='headerMainContainer'>
-            <h1>{title}</h1>
+            <h1>
+                {title}
+            </h1>
             <div className="userProfileContainer">
                 <div className='iconAndMessage'>
                     {
@@ -72,6 +82,7 @@ export default function Header({
                     className='reactIcons'
                     onMouseEnter={() => handleOnHover("logout")}
                     onMouseLeave={() => handleOnHover("logout")}
+                    onClick={handleLogout}
                 />
             </div>
         </header>
