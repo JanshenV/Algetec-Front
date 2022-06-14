@@ -25,6 +25,7 @@ export default function Home() {
             const { user, message } = await UserProfile(token);
 
             if (message) {
+                alert('Token expirado, faça login novamente.');
                 if (message.includes('jwt malformed') || message.includes('jwt expired')) return navigate('/login');
             };
 
