@@ -36,11 +36,24 @@ export default function Home() {
     }, [userData]);
 
     return (
-        <div>
+        <div className='homeMainContainer'>
             <Header
                 title="Algetec"
                 userData={userData}
             />
+
+            <div className='issuesContainer'>
+                <div className="issuesFunctions">
+                    <div>
+                        Criar issue
+                    </div>
+                </div>
+
+                <div className="issues">
+
+                </div>
+            </div>
+
         </div>
     );
 };
