@@ -22,7 +22,10 @@ export default function SignUpForm({
     handleData, handleSubmit, levels
 }) {
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form
+            className='customSignUpForm'
+            onSubmit={(e) => handleSubmit(e)}
+        >
             <Input
                 type="text"
                 placeholder="Escolha seu Nickname"
@@ -46,6 +49,7 @@ export default function SignUpForm({
             />
 
             <select
+                className='levelSelection'
                 onChange={(e) => handleData(e, "nivel")}
                 required
             >
@@ -67,7 +71,7 @@ export default function SignUpForm({
             </select>
 
             <button>
-                Cadastrar
+                Confirmar
             </button>
         </form>
     );

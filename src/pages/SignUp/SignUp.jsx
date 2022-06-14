@@ -52,16 +52,17 @@ export default function SignUp() {
     };
 
     return (
-        <div className='mainLoginContainer'>
-            <div className="formLoginContainer">
+        <div className='mainSignUpContainer'>
+            <h2>Cadastre-se</h2>
+            <div className="formSignUpContainer">
                 <SignUpForm
                     handleData={handleSignUpData}
                     handleSubmit={handleSignUpSubmit}
                     levels={levels}
                 />
+                Já tem cadastro ?
                 <span
                     onClick={() => navigate('/login')}
-                    style={{ cursor: 'pointer' }}
                 >
                     Página de login.
                 </span>
