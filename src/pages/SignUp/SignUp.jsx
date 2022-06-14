@@ -11,8 +11,16 @@ export default function SignUp() {
     const [signUpData, setSignUpData] = useState({
         nickname: '',
         email: '',
-        senha: ''
+        senha: '',
+        level: ''
     });
+
+
+    const levels = [
+        'QA Tester',
+        'Scrum Master',
+        'Developer'
+    ];
 
     async function handleSignUpData(event, field) {
         const inputValue = event.target.value;
@@ -27,7 +35,8 @@ export default function SignUp() {
         setSignUpData({
             nickname: '',
             email: '',
-            senha: ''
+            senha: '',
+            level: ''
         });
     };
 
@@ -41,6 +50,7 @@ export default function SignUp() {
                 <SignUpForm
                     handleData={handleSignUpData}
                     handleSubmit={handleSignUpSubmit}
+                    levels={levels}
                 />
             </div>
         </div>
