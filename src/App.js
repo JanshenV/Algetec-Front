@@ -1,9 +1,10 @@
+import SignUp from "./pages/SignUp/SignUp";
 
 export default function App() {
   return (
-    <div className="App">
-      'hey'
-    </div>
+    <>
+      <SignUp />
+    </>
   );
 };
 
