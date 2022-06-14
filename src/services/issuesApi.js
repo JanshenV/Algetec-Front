@@ -1,11 +1,12 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-export async function CreateIssue(IssueData) {
+export async function CreateIssue(IssueData, token) {
     try {
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
+                'authorization': token
             },
             body: JSON.stringify(IssueData)
         };

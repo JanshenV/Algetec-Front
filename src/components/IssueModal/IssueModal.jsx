@@ -2,15 +2,19 @@
 import './IssueModal.css';
 
 //React
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //Components
 import IssueForm from '../IssueForm';
 
+//Api
+import { CreateIssue } from '../../services/issuesApi';
+
 //Props
 import PropTypes from 'prop-types';
 IssueModal.propTypes = {
-    setIssueModal: PropTypes.func
+    setIssueModal: PropTypes.func,
+    token: PropTypes.string
 };
 
 IssueModal.defaultProps = {
@@ -19,7 +23,7 @@ IssueModal.defaultProps = {
 
 
 export default function IssueModal({
-    setIssueModal
+    setIssueModal, token
 }) {
     const [issueData, setIssueData] = useState({
         problema: '',
@@ -42,18 +46,13 @@ export default function IssueModal({
     const [errors, setErrors] = useState('');
     const [issueComplete, setIssueComplete] = useState(false);
 
-    async function handleIssueData(event, field) {
-        const inputValue = event.target.value;
-
-        setIssueData({
-            ...issueData,
-            [field]: inputValue
-        });
-    };
-
-    async function handleSubmit(event) {
-        event.prenvetDefault();
-    };
+    useEffect(() => {
+        function handleRedirect() {
+            if (!issueComplete) return;
+            setTimeout(() => handleCloseModal(), 3000);
+        };
+        handleRedirect();
+    }, [issueComplete]);
 
     function handleCloseModal() {
         setIssueData({
@@ -67,22 +66,52 @@ export default function IssueModal({
         setIssueModal(false);
     };
 
+    async function handleIssueData(event, field) {
+        const inputValue = event.target.value;
+        setErrors('');
+
+        setIssueData({
+            ...issueData,
+            [field]: inputValue
+        });
+    };
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const { issue, message } = await CreateIssue(issueData, token);
+        if (message) return setErrors(message);
+        setIssueComplete(true);
+    };
+
     return (
         <div className='issueModalMainContainer'>
             <div className="formIssueContainer">
-                <h2>Cadastre uma Issue</h2>
-                <IssueForm
-                    handleSubmit={handleSubmit}
-                    handleData={handleIssueData}
-                    errors={errors}
-                    statuses={statuses}
-                />
-                <button
-                    onClick={handleCloseModal}
-                    className="buttonCloseModal"
-                >
-                    Cancelar
-                </button>
+                {
+                    issueComplete ?
+                        <h2>Issue cadastrada com sucesso!</h2>
+                        :
+                        <>
+                            <h2>Cadastre uma Issue</h2>
+                            {errors &&
+                                <span className='error'>
+                                    {errors}
+                                </span>
+                            }
+                            <IssueForm
+                                handleSubmit={handleSubmit}
+                                handleData={handleIssueData}
+                                errors={errors}
+                                statuses={statuses}
+                            />
+                            <button
+                                onClick={handleCloseModal}
+                                className="buttonCloseModal"
+                            >
+                                Cancelar
+                            </button>
+                        </>
+                }
             </div>
         </div>
     );

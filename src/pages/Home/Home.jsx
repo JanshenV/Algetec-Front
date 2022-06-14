@@ -15,10 +15,10 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
     const [userData, setUserData] = useState('');
     const [issueModal, setIssueModal] = useState(false);
+    const token = localStorage.getItem('algetecToken');
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('algetecToken');
         if (!token) return navigate('/login');
 
         if (userData) return;
@@ -60,7 +60,10 @@ export default function Home() {
             {
                 issueModal &&
                 <div className='modalContainer'>
-                    <IssueModal setIssueModal={setIssueModal} />
+                    <IssueModal
+                        setIssueModal={setIssueModal}
+                        token={token}
+                    />
                 </div>
             }
         </div>
