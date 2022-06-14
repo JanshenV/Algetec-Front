@@ -65,11 +65,16 @@ export default function Header({
                         onMouseLeave={() => handleOnHover("profile")}
                     />
                 </div>
-                <span
-                    className='welcomeContainer'
-                >
-                    Olá, {userData?.nickname ? userData?.nickname : 'Rare Beauty'}
-                </span>
+                <div className='welcomeContainer'>
+                    Olá,
+                    <span style={{ color: 'white' }}>
+                        {userData?.nickname ? userData?.nickname : 'Rare Beauty'}
+                    </span>
+                    <br></br>
+                    Nível:
+                    <span style={{ color: 'white' }}>{userData.nivel}</span>
+                </div>
+
             </div>
             <div className='iconAndMessage'>
                 {
