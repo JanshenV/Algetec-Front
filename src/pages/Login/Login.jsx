@@ -2,7 +2,7 @@
 import './Login.css';
 
 //React
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Components
@@ -19,7 +19,15 @@ export default function Login() {
     });
     const [errors, setErrors] = useState('');
 
+    const token = localStorage.getItem('algetecToken');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        function checkToken() {
+            if (token) return navigate('/home');
+        };
+        checkToken();
+    }, []);
 
     async function handleLoginData(event, field) {
         const inputValue = event.target.value;

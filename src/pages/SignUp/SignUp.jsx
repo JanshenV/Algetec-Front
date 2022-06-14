@@ -28,6 +28,14 @@ export default function SignUp() {
     ];
 
     const navigate = useNavigate();
+    const token = localStorage.getItem('algetecToken');
+
+    useEffect(() => {
+        function checkToken() {
+            if (token) return navigate('/home');
+        };
+        checkToken();
+    }, []);
 
     useEffect(() => {
         function handleRedirect() {
