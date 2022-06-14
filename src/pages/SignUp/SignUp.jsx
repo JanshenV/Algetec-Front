@@ -19,6 +19,8 @@ export default function SignUp() {
         nivel: ''
     });
 
+    const [errors, setErrors] = useState('');
+
     const levels = [
         'QA Tester',
         'Scrum Master',
@@ -49,6 +51,9 @@ export default function SignUp() {
         event.preventDefault();
 
         const { message } = await UserSignUp(signUpData);
+
+        if (!message.includes('sucesso')) setErrors(message);
+        alert(errors);
     };
 
     return (

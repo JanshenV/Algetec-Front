@@ -30,28 +30,27 @@ export default function SignUpForm({
                 type="text"
                 placeholder="Escolha seu Nickname"
                 autoFocus={true}
-                required={true}
+                // required={true}
                 onChange={(e) => handleData(e, "nickname")}
             />
 
             <Input
                 type="text"
                 placeholder="Insira seu email."
-                required={true}
+                // required={true}
                 onChange={(e) => handleData(e, "email")}
             />
 
             <Input
                 type="password"
                 placeholder="Escolha uma senha."
-                required
+                // required={true}
                 onChange={(e) => handleData(e, "senha")}
             />
 
             <select
                 className='levelSelection'
                 onChange={(e) => handleData(e, "nivel")}
-                required
             >
                 <option value="">
                     Selecione sua função
