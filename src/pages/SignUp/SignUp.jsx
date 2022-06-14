@@ -3,6 +3,7 @@ import './SignUp.css';
 
 //React
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //Components
 import SignUpForm from '../../components/SignUpForm';
@@ -18,12 +19,13 @@ export default function SignUp() {
         nivel: ''
     });
 
-
     const levels = [
         'QA Tester',
         'Scrum Master',
         'Developer'
     ];
+
+    const navigate = useNavigate();
 
     async function handleSignUpData(event, field) {
         const inputValue = event.target.value;
@@ -47,7 +49,6 @@ export default function SignUp() {
         event.preventDefault();
 
         const { message } = await UserSignUp(signUpData);
-        console.log(message);
     };
 
     return (
@@ -58,6 +59,12 @@ export default function SignUp() {
                     handleSubmit={handleSignUpSubmit}
                     levels={levels}
                 />
+                <span
+                    onClick={() => navigate('/login')}
+                    style={{ cursor: 'pointer' }}
+                >
+                    Página de login.
+                </span>
             </div>
         </div>
     );

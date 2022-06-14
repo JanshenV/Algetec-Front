@@ -53,6 +53,12 @@ export default function Login() {
                     handleData={handleLoginData}
                     handleSubmit={handleLoginSubmit}
                 />
+                <span
+                    onClick={() => navigate('/signup')}
+                    style={{ cursor: 'pointer' }}
+                >
+                    Cadastre-se.
+                </span>
             </div>
         </div>
     );
