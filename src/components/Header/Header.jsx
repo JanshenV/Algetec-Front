@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/solid';
 
 export default function Header({
-    title, username
+    title, userData
 }) {
     return (
         <header className='headerMainContainer'>
@@ -16,7 +16,7 @@ export default function Header({
             <div className="userProfileContainer">
                 <UserCircleIcon className='reactIcons' />
                 <span className='welcomeContainer'>
-                    Olá, {username ? username : 'Rare Beauty'}
+                    Olá, {userData?.nickname ? userData?.nickname : 'Rare Beauty'}
                 </span>
             </div>
             <LogoutIcon className='reactIcons' />
