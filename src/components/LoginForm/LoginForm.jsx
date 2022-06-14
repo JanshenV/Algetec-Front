@@ -23,15 +23,15 @@ export default function LoginForm({
         <form onSubmit={(e) => handleSubmit(e)}>
             <Input
                 type="text"
-                placeholder="Escolha seu Nickname"
+                placeholder="Insira seu Email"
                 autoFocus={true}
                 required={true}
-                onChange={(e) => handleData(e, "nickname")}
+                onChange={(e) => handleData(e, "email")}
             />
 
             <Input
                 type="password"
-                placeholder="Escolha uma senha."
+                placeholder="Insira sua senha."
                 required={true}
                 onChange={(e) => handleData(e, "senha")}
             />

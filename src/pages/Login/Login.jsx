@@ -7,10 +7,13 @@ import { useState } from 'react';
 //Components
 import LoginForm from '../../components/LoginForm';
 
+//Api
+import { UserLogin } from '../../services/api';
+
 
 export default function Login() {
     const [loginData, setLoginData] = useState({
-        nickname: '',
+        email: '',
         senha: '',
     });
 
@@ -25,15 +28,18 @@ export default function Login() {
 
     async function handleClearAll() {
         setLoginData({
-            nickname: '',
+            email: '',
             senha: '',
         });
     };
 
     async function handleLoginSubmit(event) {
         event.preventDefault();
+        const { token, message } = await UserLogin(loginData);
+
+        if (message) return console.log(message);
+        if (token) return console.log(token);
     };
-    console.log(process.env.REACT_APP_BASE_URL)
     return (
         <div className='mainLoginContainer'>
             <div className="formLoginContainer">
