@@ -13,8 +13,8 @@ export async function UserSignUp(UserData) {
         const { message } = await serverRequest.json();
 
         return { message };
-    } catch (error) {
-        return error;
+    } catch ({ message }) {
+        return { message };
     };
 };
 
@@ -33,8 +33,27 @@ export async function UserLogin(UserData) {
         if (!serverRequest.ok) return { message };
 
         return { token };
-    } catch (error) {
-        return error;
+    } catch ({ message }) {
+        return { message };
+    };
+};
+
+export async function UserProfile(token) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json',
+                'authorization': token
+            },
+        };
+        const serverRequest = await fetch(`${BASE_URL}usuarios`, requestOptions);
+        const { user, message } = await serverRequest.json();
+
+        if (!serverRequest.ok) return { message };
+        return { user };
+    } catch ({ message }) {
+        return { message };
     };
 };
 

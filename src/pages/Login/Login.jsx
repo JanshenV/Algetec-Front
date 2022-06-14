@@ -3,6 +3,7 @@ import './Login.css';
 
 //React
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //Components
 import LoginForm from '../../components/LoginForm';
@@ -16,6 +17,7 @@ export default function Login() {
         email: '',
         senha: '',
     });
+    const navigate = useNavigate();
 
     async function handleLoginData(event, field) {
         const inputValue = event.target.value;
@@ -37,9 +39,13 @@ export default function Login() {
         event.preventDefault();
         const { token, message } = await UserLogin(loginData);
 
-        if (message) return console.log(message);
-        if (token) return console.log(token);
+        if (message) return alert(message);
+
+        localStorage.setItem('algetecToken', token);
+        handleClearAll();
+        navigate('/home');
     };
+
     return (
         <div className='mainLoginContainer'>
             <div className="formLoginContainer">
