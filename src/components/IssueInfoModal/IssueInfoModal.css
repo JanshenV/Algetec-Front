@@ -1,0 +1,43 @@
+.IssueInfoModalMainContainer {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.issueInfoContainer {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 75%;
+    border-radius: 20px;
+}
+
+.issueInfoContainer span {
+    display: flex;
+    font-weight: bolder;
+}
+
+.IssueInfoModalMainContainer button {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background: red;
+    color: wheat;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.IssueInfoModalMainContainer button:hover {
+    background: wheat;
+    color: red;
+}

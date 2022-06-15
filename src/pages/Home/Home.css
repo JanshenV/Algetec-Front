@@ -31,7 +31,6 @@
 .issuesHeader,
 .issues {
     width: 100%;
-    border: 2px solid black;
 }
 
 .issuesContainer ul {
@@ -47,7 +46,6 @@
     overflow: hidden;
     width: 120px;
     height: 40px;
-    border: 2px solid black;
 }
 
 .issuesHeader li {
@@ -60,4 +58,11 @@
     align-items: center;
     justify-content: space-evenly;
     height: 80px;
+    box-shadow: 10px 5px rgba(92, 88, 88, 0.533);
+    padding: 40px;
+}
+
+.issues:hover {
+    background: rgb(212, 211, 205);
+    cursor: pointer;
 }

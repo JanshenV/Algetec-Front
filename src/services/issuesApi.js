@@ -38,3 +38,23 @@ export async function GetAllIssues(token) {
         return { message };
     };
 };
+
+export async function EditIssue(status, id, token) {
+    try {
+        const requestOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'Application/json',
+                'authorization': token
+            },
+            body: JSON.stringify({ status })
+        };
+        const serverRequest = await fetch(`${BASE_URL}issues/${id}`, requestOptions);
+        const { allIssues, message } = await serverRequest.json();
+        if (!serverRequest.ok) return { message };
+
+        return { allIssues };
+    } catch ({ message }) {
+        return { message };
+    };
+};

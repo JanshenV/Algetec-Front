@@ -7,16 +7,19 @@ import dateFormat from 'dateformat';
 //Api
 import {
     UserProfile,
-    AllUsersRequest
+    AllUsersRequest,
 } from '../../services/usersApi';
-import { GetAllIssues } from '../../services/issuesApi';
+import {
+    GetAllIssues,
+    EditIssue
+} from '../../services/issuesApi';
 
 //Global Variables
 import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import Header from '../../components/Header';
-import IssueModal from '../../components/IssueModal';
+import IssueInfoModal from '../../components/IssueInfoModal';
 
 export default function Home() {
     const {
@@ -28,6 +31,31 @@ export default function Home() {
     } = useGlobal();
 
     const [issueModal, setIssueModal] = useState(false);
+    const [isssueInfoModal, setIsssueInfoModal] = useState(false);
+    const [modalInfoData, setModalInfoData] = useState({
+        item: '',
+        problema: '',
+        versao: '',
+        prioridade: '',
+        status: '',
+        data: '',
+        autor: '',
+        atribuido: ''
+    });
+
+    async function handleModalInfoData(item, data) {
+        setIsssueInfoModal(true);
+        setModalInfoData({
+            item: item.issue_id,
+            problema: item.problema,
+            versao: item.versao,
+            prioridade: item.prioridade,
+            status: item.status,
+            data,
+            autor: item.autor,
+            atribuido: item.atribuido.nickname
+        });
+    };
 
     useEffect(() => {
         if (!token) return navigate('/login');
@@ -67,10 +95,41 @@ export default function Home() {
                 message
             } = await GetAllIssues(token);
             if (message) return console.log(message);
-            setAllIssues(allIssuesApi);
+            const localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
+            setAllIssues(localAllIssues);
         };
         requestAllIssues();
-    }, [allIssues]);
+    }, [allIssues, modalInfoData.status]);
+
+    useEffect(() => {
+        async function handleStatusEdit() {
+            if (!modalInfoData.status || !modalInfoData.item) return;
+            const {
+                issue: issueApi,
+                message
+            } = await EditIssue(
+                modalInfoData.status,
+                modalInfoData.item,
+                token);
+            if (message) return console.log(message);
+        };
+
+        handleStatusEdit();
+    }, [modalInfoData]);
+
+    function handleCloseInfoModal() {
+        setIsssueInfoModal(false);
+        setModalInfoData({
+            item: '',
+            problema: '',
+            versao: '',
+            prioridade: '',
+            status: '',
+            data: '',
+            autor: '',
+            atribuido: ''
+        });
+    };
 
     return (
         <div className='homeMainContainer'>
@@ -108,6 +167,7 @@ export default function Home() {
                             <div
                                 className="issues"
                                 key={index}
+                                onClick={() => handleModalInfoData(item, data)}
                             >
                                 <ul>
                                     <li>{item.issue_id}</li>
@@ -134,6 +194,15 @@ export default function Home() {
                         token={token}
                     />
                 </div>
+            }
+
+            {
+                isssueInfoModal &&
+                <IssueInfoModal
+                    modalInfoData={modalInfoData}
+                    handleCloseModal={handleCloseInfoModal}
+                    setModalInfoData={setModalInfoData}
+                />
             }
         </div>
     );
