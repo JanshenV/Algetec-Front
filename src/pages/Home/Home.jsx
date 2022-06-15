@@ -3,6 +3,7 @@ import './Home.css';
 
 //Libs
 import dateFormat from 'dateformat';
+import { TrashIcon } from '@heroicons/react/solid';
 
 //Api
 import {
@@ -11,7 +12,8 @@ import {
 } from '../../services/usersApi';
 import {
     GetAllIssues,
-    EditIssue
+    EditIssue,
+    DeleteIssue
 } from '../../services/issuesApi';
 
 //Global Variables
@@ -32,6 +34,7 @@ export default function Home() {
 
     const [issueModal, setIssueModal] = useState(false);
     const [isssueInfoModal, setIsssueInfoModal] = useState(false);
+    const [deleteIssue, setDeleteIssue] = useState(false);
     const [modalInfoData, setModalInfoData] = useState({
         item: '',
         problema: '',
@@ -90,6 +93,7 @@ export default function Home() {
 
     useEffect(() => {
         async function requestAllIssues() {
+            if (!deleteIssue) return;
             const {
                 allIssues: allIssuesApi,
                 message
@@ -97,9 +101,10 @@ export default function Home() {
             if (message) return console.log(message);
             const localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
             setAllIssues(localAllIssues);
+            setDeleteIssue(false);
         };
         requestAllIssues();
-    }, [allIssues, modalInfoData.status]);
+    }, [allIssues, modalInfoData.status, deleteIssue]);
 
     useEffect(() => {
         async function handleStatusEdit() {
@@ -129,6 +134,14 @@ export default function Home() {
             autor: '',
             atribuido: ''
         });
+    };
+
+    async function handleDeleteIssue(id) {
+        const {
+            message
+        } = await DeleteIssue(id, token);
+        if (message) return alert(message);
+        setDeleteIssue(true);
     };
 
     return (
@@ -167,9 +180,8 @@ export default function Home() {
                             <div
                                 className="issues"
                                 key={index}
-                                onClick={() => handleModalInfoData(item, data)}
                             >
-                                <ul>
+                                <ul onClick={() => handleModalInfoData(item, data)}>
                                     <li>{item.issue_id}</li>
                                     <li>{item.problema}</li>
                                     <li>{item.versao}</li>
@@ -180,6 +192,10 @@ export default function Home() {
                                     <li>{item.autor}</li>
                                     <li>{item.atribuido.nickname}</li>
                                 </ul>
+                                <TrashIcon
+                                    className='deleteIcon'
+                                    onClick={() => handleDeleteIssue(item.issue_id)}
+                                />
                             </div>
                         );
                     })

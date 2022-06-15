@@ -50,6 +50,11 @@
 
 .issuesHeader li {
     font-weight: bolder;
+    cursor: pointer;
+}
+
+.issuesHeader li:hover {
+    color: #8888;
 }
 
 .issuesHeader,
@@ -60,9 +65,17 @@
     height: 80px;
     box-shadow: 10px 5px rgba(92, 88, 88, 0.533);
     padding: 40px;
+    position: relative;
 }
 
 .issues:hover {
     background: rgb(212, 211, 205);
+    cursor: pointer;
+}
+
+.deleteIcon {
+    position: absolute;
+    width: 30px;
+    right: 120px;
     cursor: pointer;
 }
