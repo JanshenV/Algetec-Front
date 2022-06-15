@@ -11,15 +11,20 @@ import {
   BrowserRouter as Router
 } from 'react-router-dom';
 
+//Global Provider
+import { GlobalProvider } from './context/GlobalContext';
+
 export default function App() {
   return (
     <Router>
-      <Routes>
-        <Route path='/signup' exact element={<SignUp />} />
-        <Route path='/login' exact element={<Login />} />
-        <Route path='/home' exact element={<Home />} />
-        <Route path='/' exact element={<Home />} />
-      </Routes>
+      <GlobalProvider>
+        <Routes>
+          <Route path='/signup' exact element={<SignUp />} />
+          <Route path='/login' exact element={<Login />} />
+          <Route path='/home' exact element={<Home />} />
+          <Route path='/' exact element={<Home />} />
+        </Routes>
+      </GlobalProvider>
     </Router>
   );
 };

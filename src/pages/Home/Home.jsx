@@ -4,6 +4,9 @@ import './Home.css';
 //Api
 import { UserProfile } from '../../services/usersApi';
 
+//GlobalHook
+import useGlobal from '../../hooks/useGlobal';
+
 //Components
 import Header from '../../components/Header';
 import IssueModal from '../../components/IssueModal';
@@ -15,8 +18,12 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
     const [userData, setUserData] = useState('');
     const [issueModal, setIssueModal] = useState(false);
-    const token = localStorage.getItem('algetecToken');
+    // const token = localStorage.getItem('algetecToken');
     const navigate = useNavigate();
+
+    const {
+        token
+    } = useGlobal();
 
     useEffect(() => {
         if (!token) return navigate('/login');
