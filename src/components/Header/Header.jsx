@@ -1,9 +1,8 @@
 //Styles
 import './Header.css';
 
-//React
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //Icons
 import {
@@ -11,16 +10,27 @@ import {
     LogoutIcon
 } from '@heroicons/react/solid';
 
-export default function Header({
-    title, userData
-}) {
+//PropTypes
+import PropTypes from 'prop-types';
+Header.propTypes = {
+    title: PropTypes.string,
+};
+Header.defaultProps = {
+    title: "My Companie's name",
+};
+
+export default function Header({ title }) {
+
+    const {
+        useState, useEffect,
+        userData, navigate
+    } = useGlobal();
 
     const [onHover, setOnHover] = useState({
         profile: false,
         logout: false
     });
 
-    const navigate = useNavigate();
 
     function handleOnHover(field) {
         if (field === 'profile') {
@@ -54,7 +64,7 @@ export default function Header({
             <div className="userProfileContainer">
                 <div className='iconAndMessage'>
                     {
-                        onHover.profile &&
+                        onHover?.profile &&
                         <span>
                             Edite seu perfil.
                         </span>
@@ -72,7 +82,7 @@ export default function Header({
                     </span>
                     <br></br>
                     Nível:
-                    <span style={{ color: 'white' }}>{userData.nivel}</span>
+                    <span style={{ color: 'white' }}>{userData?.nivel}</span>
                 </div>
 
             </div>

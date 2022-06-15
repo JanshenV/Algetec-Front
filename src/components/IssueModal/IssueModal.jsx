@@ -1,8 +1,8 @@
 //Styles
 import './IssueModal.css';
 
-//React
-import { useState, useEffect } from 'react';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import IssueForm from '../IssueForm';
@@ -14,7 +14,6 @@ import { CreateIssue } from '../../services/issuesApi';
 import PropTypes from 'prop-types';
 IssueModal.propTypes = {
     setIssueModal: PropTypes.func,
-    token: PropTypes.string
 };
 
 IssueModal.defaultProps = {
@@ -23,8 +22,14 @@ IssueModal.defaultProps = {
 
 
 export default function IssueModal({
-    setIssueModal, token
+    setIssueModal
 }) {
+    const {
+        useState, useEffect,
+        token,
+        errors, setErrors
+    } = useGlobal();
+
     const [issueData, setIssueData] = useState({
         problema: '',
         versao: '',
@@ -43,7 +48,6 @@ export default function IssueModal({
         'Resolvido'
     ];
 
-    const [errors, setErrors] = useState('');
     const [issueComplete, setIssueComplete] = useState(false);
 
     useEffect(() => {

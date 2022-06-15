@@ -1,9 +1,8 @@
 //Styles
 import './SignUp.css';
 
-//React
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import SignUpForm from '../../components/SignUpForm';
@@ -12,13 +11,18 @@ import SignUpForm from '../../components/SignUpForm';
 import { UserSignUp } from '../../services/usersApi';
 
 export default function SignUp() {
+    const {
+        token, navigate,
+        useState, useEffect,
+        errors, setErrors
+    } = useGlobal();
+
     const [signUpData, setSignUpData] = useState({
         nickname: '',
         email: '',
         senha: '',
         nivel: ''
     });
-    const [errors, setErrors] = useState('');
     const [signUpComplete, setSignUpComplete] = useState(false);
 
     const levels = [
@@ -26,9 +30,6 @@ export default function SignUp() {
         'Scrum Master',
         'Developer'
     ];
-
-    const navigate = useNavigate();
-    const token = localStorage.getItem('algetecToken');
 
     useEffect(() => {
         function checkToken() {

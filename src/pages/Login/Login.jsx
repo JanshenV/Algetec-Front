@@ -1,9 +1,8 @@
 //Styles
 import './Login.css';
 
-//React
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import LoginForm from '../../components/LoginForm';
@@ -13,14 +12,16 @@ import { UserLogin } from '../../services/usersApi';
 
 
 export default function Login() {
+    const {
+        errors, setErrors,
+        token, navigate,
+        useState, useEffect
+    } = useGlobal();
+
     const [loginData, setLoginData] = useState({
         email: '',
         senha: '',
     });
-    const [errors, setErrors] = useState('');
-
-    const token = localStorage.getItem('algetecToken');
-    const navigate = useNavigate();
 
     useEffect(() => {
         function checkToken() {

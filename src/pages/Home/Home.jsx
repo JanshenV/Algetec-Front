@@ -4,27 +4,21 @@ import './Home.css';
 //Api
 import { UserProfile } from '../../services/usersApi';
 
-//GlobalHook
+//Global Variables
 import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import Header from '../../components/Header';
 import IssueModal from '../../components/IssueModal';
 
-//React
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 export default function Home() {
-    const [userData, setUserData] = useState('');
-    const [issueModal, setIssueModal] = useState(false);
-    // const token = localStorage.getItem('algetecToken');
-    const navigate = useNavigate();
-
     const {
-        token
+        token, navigate,
+        userData, setUserData,
+        useState, useEffect
     } = useGlobal();
 
+    const [issueModal, setIssueModal] = useState(false);
     useEffect(() => {
         if (!token) return navigate('/login');
 

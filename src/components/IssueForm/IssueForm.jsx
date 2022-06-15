@@ -4,8 +4,8 @@ import './IssueForm.css';
 //Components
 import Input from '../Input';
 
-//React
-import { useState, useEffect } from 'react';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -25,6 +25,9 @@ export default function IssueForm({
     handleSubmit, handleData, errors,
     statuses
 }) {
+    const {
+        useState, useEffect
+    } = useGlobal();
 
     const [inputsError, setInputsError] = useState({
         prioridade: false,

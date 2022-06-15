@@ -4,8 +4,8 @@ import './SignUpForm.css';
 //Components
 import Input from '../Input/Input';
 
-//React
-import { useState, useEffect } from 'react';
+//Global Variables
+import useGlobal from '../../hooks/useGlobal';
 
 //Props
 import PropTypes from 'prop-types';
@@ -26,6 +26,9 @@ export default function SignUpForm({
     handleData, handleSubmit, levels,
     errors
 }) {
+    const {
+        useState, useEffect,
+    } = useGlobal();
 
     const [inputsError, setInputsError] = useState({
         nickname: false,
