@@ -14,18 +14,14 @@ import { CreateIssue } from '../../services/issuesApi';
 import PropTypes from 'prop-types';
 IssueModal.propTypes = {
     setIssueModal: PropTypes.func,
-    allUsers: PropTypes.array
 };
 
 IssueModal.defaultProps = {
     setIssueModal: () => null,
-    allUsers: []
 };
 
 
-export default function IssueModal({
-    setIssueModal, allUsers
-}) {
+export default function IssueModal({ setIssueModal }) {
     const {
         useState, useEffect,
         token,
@@ -37,7 +33,8 @@ export default function IssueModal({
         versao: '',
         descricao: '',
         prioridade: '',
-        status: ''
+        status: '',
+        atribuido: ''
     });
 
     const statuses = [
@@ -51,8 +48,6 @@ export default function IssueModal({
     ];
 
     const [issueComplete, setIssueComplete] = useState(false);
-
-    console.log(allUsers);
 
     useEffect(() => {
         function handleRedirect() {
@@ -75,9 +70,10 @@ export default function IssueModal({
     };
 
     async function handleIssueData(event, field) {
-        const inputValue = event.target.value;
+        let inputValue = event.target.value;
         setErrors('');
 
+        if (field === 'atribuido') inputValue = Number(inputValue);
         setIssueData({
             ...issueData,
             [field]: inputValue

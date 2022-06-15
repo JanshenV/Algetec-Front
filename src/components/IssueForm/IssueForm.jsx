@@ -13,20 +13,21 @@ IssueForm.propTypes = {
     handleSubmit: PropTypes.func,
     handleData: PropTypes.func,
     errors: PropTypes.string,
-    statuses: PropTypes.arrayOf(PropTypes.string)
+    statuses: PropTypes.arrayOf(PropTypes.string),
 };
 IssueForm.defaultProps = {
     handleSubmit: () => null,
     handleData: () => null,
-    statuses: []
+    statuses: [],
 };
 
 export default function IssueForm({
     handleSubmit, handleData, errors,
-    statuses
+    statuses,
 }) {
     const {
-        useState, useEffect
+        useState, useEffect,
+        allUsers
     } = useGlobal();
 
     const [inputsError, setInputsError] = useState({
@@ -34,6 +35,7 @@ export default function IssueForm({
         descricao: false,
         versao: false,
         problema: false,
+        atribuido: false
     });
 
     useEffect(() => {
@@ -103,7 +105,31 @@ export default function IssueForm({
             />
 
             <select
-                className='statusSelect'
+                className='selections'
+                onChange={(e) => handleData(e, "atribuido")}
+                required
+            >
+                <option value="">
+                    Atribuir à
+                </option>
+                {
+                    allUsers.length &&
+                    allUsers.map((option, index) => {
+                        return (
+                            <option
+                                value={option.id}
+                                key={index}
+                            >
+                                {option.nickname}
+                            </option>
+                        );
+                    })
+                }
+            </select>
+
+
+            <select
+                className='selections'
                 onChange={(e) => handleData(e, "status")}
             >
                 <option value="">

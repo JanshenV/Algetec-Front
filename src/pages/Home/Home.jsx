@@ -81,7 +81,6 @@ export default function Home() {
                     <IssueModal
                         setIssueModal={setIssueModal}
                         token={token}
-                        allUsers={allUsers}
                     />
                 </div>
             }
