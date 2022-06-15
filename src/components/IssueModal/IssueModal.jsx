@@ -14,15 +14,17 @@ import { CreateIssue } from '../../services/issuesApi';
 import PropTypes from 'prop-types';
 IssueModal.propTypes = {
     setIssueModal: PropTypes.func,
+    allUsers: PropTypes.array
 };
 
 IssueModal.defaultProps = {
-    setIssueModal: () => null
+    setIssueModal: () => null,
+    allUsers: []
 };
 
 
 export default function IssueModal({
-    setIssueModal
+    setIssueModal, allUsers
 }) {
     const {
         useState, useEffect,
@@ -49,6 +51,8 @@ export default function IssueModal({
     ];
 
     const [issueComplete, setIssueComplete] = useState(false);
+
+    console.log(allUsers);
 
     useEffect(() => {
         function handleRedirect() {

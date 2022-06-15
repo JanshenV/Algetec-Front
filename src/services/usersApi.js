@@ -57,6 +57,25 @@ export async function UserProfile(token) {
     };
 };
 
+export async function AllUsersRequest(token) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json',
+                'authorization': token
+            },
+        };
+        const serverRequest = await fetch(`${BASE_URL}usuarios/all`, requestOptions);
+        const { allUsers, message } = await serverRequest.json();
+
+        if (!serverRequest.ok) return { message };
+        return { allUsers };
+    } catch ({ message }) {
+        return { message };
+    };
+};
+
 
 
 

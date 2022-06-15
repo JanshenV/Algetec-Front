@@ -2,7 +2,10 @@
 import './Home.css';
 
 //Api
-import { UserProfile } from '../../services/usersApi';
+import {
+    UserProfile,
+    AllUsersRequest
+} from '../../services/usersApi';
 
 //Global Variables
 import useGlobal from '../../hooks/useGlobal';
@@ -15,7 +18,8 @@ export default function Home() {
     const {
         token, navigate,
         userData, setUserData,
-        useState, useEffect
+        useState, useEffect,
+        allUsers, setAllUsers
     } = useGlobal();
 
     const [issueModal, setIssueModal] = useState(false);
@@ -36,6 +40,19 @@ export default function Home() {
         };
         requestUserData();
     }, [userData]);
+
+    useEffect(() => {
+        async function requestAllUsers() {
+            if (allUsers.length) return;
+            const {
+                allUsers: allUsersApi,
+                message
+            } = await AllUsersRequest(token);
+            if (message) return alert(message);
+            setAllUsers(allUsersApi);
+        };
+        requestAllUsers();
+    }, [allUsers]);
 
     return (
         <div className='homeMainContainer'>
@@ -64,6 +81,7 @@ export default function Home() {
                     <IssueModal
                         setIssueModal={setIssueModal}
                         token={token}
+                        allUsers={allUsers}
                     />
                 </div>
             }

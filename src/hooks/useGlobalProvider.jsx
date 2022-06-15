@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function useGlobalProvider() {
     const [errors, setErrors] = useState('');
     const [userData, setUserData] = useState('');
+    const [allUsers, setAllUsers] = useState([]);
 
     const token = localStorage.getItem('algetecToken');
     const navigate = useNavigate();
@@ -14,5 +15,6 @@ export default function useGlobalProvider() {
         navigate, token,
         errors, setErrors,
         userData, setUserData,
+        allUsers, setAllUsers
     };
 };

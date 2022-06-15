@@ -22,8 +22,9 @@ Header.defaultProps = {
 export default function Header({ title }) {
 
     const {
-        useState,
-        userData, navigate
+        useState, setUserData,
+        userData, navigate,
+        setErrors
     } = useGlobal();
 
     const [onHover, setOnHover] = useState({
