@@ -93,13 +93,12 @@ export default function Home() {
 
     useEffect(() => {
         async function requestAllIssues() {
-            if (!deleteIssue) return;
             const {
                 allIssues: allIssuesApi,
                 message
             } = await GetAllIssues(token);
             if (message) return console.log(message);
-            const localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
+            let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
             setAllIssues(localAllIssues);
             setDeleteIssue(false);
         };
