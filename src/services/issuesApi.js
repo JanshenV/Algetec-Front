@@ -19,3 +19,22 @@ export async function CreateIssue(IssueData, token) {
         return { message };
     };
 };
+
+export async function GetAllIssues(token) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json',
+                'authorization': token
+            },
+        };
+        const serverRequest = await fetch(`${BASE_URL}issues/all`, requestOptions);
+        const { allIssues, message } = await serverRequest.json();
+        if (!serverRequest.ok) return { message };
+
+        return { allIssues };
+    } catch ({ message }) {
+        return { message };
+    };
+};
