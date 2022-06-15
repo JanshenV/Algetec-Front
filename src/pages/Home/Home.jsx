@@ -6,6 +6,7 @@ import {
     UserProfile,
     AllUsersRequest
 } from '../../services/usersApi';
+import { GetAllIssues } from '../../services/issuesApi';
 
 //Global Variables
 import useGlobal from '../../hooks/useGlobal';
@@ -19,10 +20,12 @@ export default function Home() {
         token, navigate,
         userData, setUserData,
         useState, useEffect,
-        allUsers, setAllUsers
+        allUsers, setAllUsers,
+        allIssues, setAllIssues
     } = useGlobal();
 
     const [issueModal, setIssueModal] = useState(false);
+
     useEffect(() => {
         if (!token) return navigate('/login');
 
@@ -54,6 +57,19 @@ export default function Home() {
         requestAllUsers();
     }, [allUsers]);
 
+    useEffect(() => {
+        async function requestAllIssues() {
+            if (allIssues.length) return;
+            const {
+                allIssues: allIssuesApi,
+                message
+            } = await GetAllIssues(token);
+            if (message) return alert(message);
+            setAllIssues(allIssuesApi);
+        };
+        requestAllIssues();
+    }, [allIssues]);
+
     return (
         <div className='homeMainContainer'>
             <Header
@@ -63,15 +79,43 @@ export default function Home() {
 
             <div className='issuesContainer'>
                 <div className="issuesFunctions">
-                    <div
-                        onClick={() => setIssueModal(true)}
-                    >
+                    <div onClick={() => setIssueModal(true)}>
                         Criar issue
                     </div>
                 </div>
 
+                <div className="issuesHeader">
+                    <ul>
+                        <li>Item</li>
+                        <li>Problema</li>
+                        <li>Versão</li>
+                        <li>Descrição</li>
+                        <li>Prioridade</li>
+                        <li>Status</li>
+                        <li>Data</li>
+                        <li>Autor</li>
+                        <li>Atribuida à</li>
+                    </ul>
+                </div>
                 <div className="issues">
-
+                    {
+                        allIssues.length &&
+                        allIssues.map((item, index) => {
+                            return (
+                                <ul>
+                                    <li>{item.id}</li>
+                                    <li>{item.problema}</li>
+                                    <li>{item.versao}</li>
+                                    <li>{item.descricao}</li>
+                                    <li>{item.prioridade}</li>
+                                    <li>{item.status}</li>
+                                    <li>{item.data}</li>
+                                    <li>{item.nickname}</li>
+                                    <li>{item.atribuido.nickname}</li>
+                                </ul>
+                            );
+                        })
+                    }
                 </div>
             </div>
 

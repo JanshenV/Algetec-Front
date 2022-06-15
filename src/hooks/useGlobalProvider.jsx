@@ -6,6 +6,7 @@ export default function useGlobalProvider() {
     const [errors, setErrors] = useState('');
     const [userData, setUserData] = useState('');
     const [allUsers, setAllUsers] = useState([]);
+    const [allIssues, setAllIssues] = useState([]);
 
     const token = localStorage.getItem('algetecToken');
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function useGlobalProvider() {
         navigate, token,
         errors, setErrors,
         userData, setUserData,
-        allUsers, setAllUsers
+        allUsers, setAllUsers,
+        allIssues, setAllIssues
     };
 };
