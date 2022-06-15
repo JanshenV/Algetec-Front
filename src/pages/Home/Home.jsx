@@ -1,6 +1,9 @@
 //Styles
 import './Home.css';
 
+//Libs
+import dateFormat from 'dateformat';
+
 //Api
 import {
     UserProfile,
@@ -59,12 +62,11 @@ export default function Home() {
 
     useEffect(() => {
         async function requestAllIssues() {
-            if (allIssues.length) return;
             const {
                 allIssues: allIssuesApi,
                 message
             } = await GetAllIssues(token);
-            if (message) return alert(message);
+            if (message) return console.log(message);
             setAllIssues(allIssuesApi);
         };
         requestAllIssues();
@@ -97,26 +99,31 @@ export default function Home() {
                         <li>Atribuida à</li>
                     </ul>
                 </div>
-                <div className="issues">
-                    {
-                        allIssues.length &&
-                        allIssues.map((item, index) => {
-                            return (
+
+                {
+                    allIssues.length &&
+                    allIssues.map((item, index) => {
+                        let data = dateFormat(item.data, 'dd/mm/yyyy');
+                        return (
+                            <div
+                                className="issues"
+                                key={index}
+                            >
                                 <ul>
-                                    <li>{item.id}</li>
+                                    <li>{item.issue_id}</li>
                                     <li>{item.problema}</li>
                                     <li>{item.versao}</li>
                                     <li>{item.descricao}</li>
                                     <li>{item.prioridade}</li>
                                     <li>{item.status}</li>
-                                    <li>{item.data}</li>
-                                    <li>{item.nickname}</li>
+                                    <li>{data}</li>
+                                    <li>{item.autor}</li>
                                     <li>{item.atribuido.nickname}</li>
                                 </ul>
-                            );
-                        })
-                    }
-                </div>
+                            </div>
+                        );
+                    })
+                }
             </div>
 
             {
