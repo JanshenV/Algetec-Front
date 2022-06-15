@@ -52,10 +52,10 @@ export default function Header({ title }) {
     };
 
     function handleLogout() {
+        navigate('/login');
         localStorage.removeItem('algetecToken');
         setUserData('');
         setErrors('');
-        navigate('/login');
     };
 
     return (
@@ -68,7 +68,7 @@ export default function Header({ title }) {
                     {
                         onHover?.profile &&
                         <span>
-                            Edite seu perfil.
+                            Edite seu perfil
                         </span>
                     }
                     <UserCircleIcon
@@ -92,7 +92,7 @@ export default function Header({ title }) {
                 {
                     onHover.logout &&
                     <span>
-                        Logout.
+                        Logout
                     </span>
                 }
                 <LogoutIcon
