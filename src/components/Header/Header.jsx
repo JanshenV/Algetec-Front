@@ -22,7 +22,7 @@ Header.defaultProps = {
 export default function Header({ title }) {
 
     const {
-        useState, useEffect,
+        useState,
         userData, navigate
     } = useGlobal();
 
@@ -53,6 +53,8 @@ export default function Header({ title }) {
 
     function handleLogout() {
         localStorage.removeItem('algetecToken');
+        setUserData('');
+        setErrors('');
         navigate('/login');
     };
 
