@@ -61,10 +61,10 @@ export default function IssueInfoModal({
                     return setPossibleStatuses(localStatuses);
                 };
                 localStatuses = [
-                    'Não será removido',
-                    'Duplicado',
-                    'Não é erro',
-                    'Resolvido'
+                    'não será removido',
+                    'duplicado',
+                    'não é erro',
+                    'resolvido'
                 ];
                 return setPossibleStatuses(localStatuses);
             };
@@ -87,7 +87,7 @@ export default function IssueInfoModal({
                             status: e.target.value
                         });
                     }}>
-                        <option value={status}>
+                        <option value="">
                             {status}
                         </option>
                         {
