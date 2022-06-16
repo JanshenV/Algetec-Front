@@ -75,3 +75,21 @@ export async function DeleteIssue(id, token) {
         return { message };
     };
 };
+
+export async function DeleteMultiple(arrayToDelete, token) {
+    try {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'Application/json',
+                'authorization': token
+            },
+            body: JSON.stringify({ arrayToDelete })
+        };
+        const serverRequest = await fetch(`${BASE_URL}multiple/issues`, requestOptions);
+        const { message } = await serverRequest.json();
+        if (!serverRequest.ok) return { message };
+    } catch ({ message }) {
+        return { message };
+    };
+};

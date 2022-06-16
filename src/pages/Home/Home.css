@@ -15,18 +15,30 @@
     margin-top: 5%;
 }
 
+.issuesFunctions {
+    display: flex;
+    width: auto;
+}
+
 .issuesFunctions div {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: 100px;
     height: 40px;
     border-radius: 10px;
-    color: white;
-    background: green;
 }
 
+.createIssue {
+    color: white;
+    background: green;
+    width: 100px;
+}
+
+.deleteMultipleIssues {
+    color: white;
+    background: red;
+}
 .issuesContainer,
 .issuesHeader,
 .issues {
@@ -68,14 +80,33 @@
     position: relative;
 }
 
+.issues div {
+    width: 80px;
+    list-style-type: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .issues:hover {
     background: rgb(212, 211, 205);
     cursor: pointer;
 }
 
 .deleteIcon {
-    position: absolute;
     width: 30px;
-    right: 120px;
+    right: 30px;
+}
+
+.checkboxIssue {
+    padding: 40px;
     cursor: pointer;
+}
+
+.deleteIconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    cursor: pointer;
+    position: absolute;
 }

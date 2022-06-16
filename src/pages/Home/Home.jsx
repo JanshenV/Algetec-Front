@@ -13,7 +13,8 @@ import {
 import {
     GetAllIssues,
     EditIssue,
-    DeleteIssue
+    DeleteIssue,
+    DeleteMultiple
 } from '../../services/issuesApi';
 
 //Global Variables
@@ -21,6 +22,7 @@ import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import Header from '../../components/Header';
+import IssueModal from '../../components/IssueModal';
 import IssueInfoModal from '../../components/IssueInfoModal';
 
 export default function Home() {
@@ -34,7 +36,7 @@ export default function Home() {
 
     const [issueModal, setIssueModal] = useState(false);
     const [isssueInfoModal, setIsssueInfoModal] = useState(false);
-    const [deleteIssue, setDeleteIssue] = useState(false);
+    const [multipleIssues, setMultipleIssues] = useState([]);
     const [modalInfoData, setModalInfoData] = useState({
         item: '',
         problema: '',
@@ -46,7 +48,10 @@ export default function Home() {
         atribuido: ''
     });
 
-    async function handleModalInfoData(item, data) {
+    async function handleModalInfoData(e, item, data) {
+        e.stopPropagation();
+        if (e.target.className !== 'issues') return;
+
         setIsssueInfoModal(true);
         setModalInfoData({
             item: item.issue_id,
@@ -92,18 +97,8 @@ export default function Home() {
     }, [allUsers]);
 
     useEffect(() => {
-        async function requestAllIssues() {
-            const {
-                allIssues: allIssuesApi,
-                message
-            } = await GetAllIssues(token);
-            if (message) return console.log(message);
-            let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
-            setAllIssues(localAllIssues);
-            setDeleteIssue(false);
-        };
         requestAllIssues();
-    }, [allIssues, modalInfoData.status, deleteIssue]);
+    }, [allIssues, multipleIssues]);
 
     useEffect(() => {
         async function handleStatusEdit() {
@@ -121,6 +116,16 @@ export default function Home() {
         handleStatusEdit();
     }, [modalInfoData]);
 
+    async function requestAllIssues() {
+        const {
+            allIssues: allIssuesApi,
+            message
+        } = await GetAllIssues(token);
+        if (message) return console.log(message);
+        let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
+        setAllIssues(localAllIssues);
+    };
+
     function handleCloseInfoModal() {
         setIsssueInfoModal(false);
         setModalInfoData({
@@ -135,12 +140,28 @@ export default function Home() {
         });
     };
 
-    async function handleDeleteIssue(id) {
-        const {
-            message
-        } = await DeleteIssue(id, token);
-        if (message) return alert(message);
-        setDeleteIssue(true);
+    async function handleArrayMultipleIssues(e) {
+        const issueId = e.target.value;
+        if (!issueId) return;
+        let localMultipleIssues = multipleIssues;
+        const findExistingIssue = localMultipleIssues.find(id => id === issueId);
+
+        if (findExistingIssue) {
+            localMultipleIssues = localMultipleIssues.filter(id => id !== issueId);
+            setMultipleIssues([...localMultipleIssues]);
+            return;
+        };
+
+        localMultipleIssues.push(issueId);
+        setMultipleIssues([...localMultipleIssues]);
+    };
+
+    async function handleDeleteMultipleIssues() {
+        const { message } = await DeleteMultiple(multipleIssues, token);
+        if (message) return console.log(message);
+        requestAllIssues();
+        setMultipleIssues([]);
+
     };
 
     return (
@@ -152,8 +173,17 @@ export default function Home() {
 
             <div className='issuesContainer'>
                 <div className="issuesFunctions">
-                    <div onClick={() => setIssueModal(true)}>
+                    <div
+                        onClick={() => setIssueModal(true)}
+                        className="createIssue"
+                    >
                         Criar issue
+                    </div>
+                    <div
+                        onClick={handleDeleteMultipleIssues}
+                        className="deleteMultipleIssues"
+                    >
+                        Deletar Selecionadas
                     </div>
                 </div>
 
@@ -179,22 +209,24 @@ export default function Home() {
                             <div
                                 className="issues"
                                 key={index}
+                                onClick={(e) => handleModalInfoData(e, item, data)}
                             >
-                                <ul onClick={() => handleModalInfoData(item, data)}>
-                                    <li>{item.issue_id}</li>
-                                    <li>{item.problema}</li>
-                                    <li>{item.versao}</li>
-                                    <li>{item.descricao}</li>
-                                    <li>{item.prioridade}</li>
-                                    <li>{item.status}</li>
-                                    <li>{data}</li>
-                                    <li>{item.autor}</li>
-                                    <li>{item.atribuido.nickname}</li>
-                                </ul>
-                                <TrashIcon
-                                    className='deleteIcon'
-                                    onClick={() => handleDeleteIssue(item.issue_id)}
-                                />
+                                <div className='checkboxIssue'>
+                                    <input
+                                        type="checkbox"
+                                        value={item.issue_id}
+                                        onChange={(e) => handleArrayMultipleIssues(e)}
+                                    />
+                                </div>
+                                <div>{item.issue_id}</div>
+                                <div>{item.problema}</div>
+                                <div>{item.versao}</div>
+                                <div>{item.descricao}</div>
+                                <div>{item.prioridade}</div>
+                                <div>{item.status}</div>
+                                <div>{data}</div>
+                                <div>{item.autor}</div>
+                                <div>{item.atribuido.nickname}</div>
                             </div>
                         );
                     })
