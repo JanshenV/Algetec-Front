@@ -3,7 +3,6 @@ import './Home.css';
 
 //Libs
 import dateFormat from 'dateformat';
-import { TrashIcon } from '@heroicons/react/solid';
 
 //Api
 import {
@@ -13,7 +12,6 @@ import {
 import {
     GetAllIssues,
     EditIssue,
-    DeleteIssue,
     DeleteMultiple
 } from '../../services/issuesApi';
 
@@ -97,8 +95,17 @@ export default function Home() {
     }, [allUsers]);
 
     useEffect(() => {
+        async function requestAllIssues() {
+            const {
+                allIssues: allIssuesApi,
+                message
+            } = await GetAllIssues(token);
+            if (message) return console.log(message);
+            let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
+            setAllIssues([...localAllIssues]);
+        };
         requestAllIssues();
-    }, [allIssues, multipleIssues]);
+    }, [allIssues]);
 
     useEffect(() => {
         async function handleStatusEdit() {
@@ -116,15 +123,20 @@ export default function Home() {
         handleStatusEdit();
     }, [modalInfoData]);
 
-    async function requestAllIssues() {
-        const {
-            allIssues: allIssuesApi,
-            message
-        } = await GetAllIssues(token);
-        if (message) return console.log(message);
-        let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
+    function sortById() {
+        let localAllIssues = [...allIssues];
+        const lastIndex = localAllIssues.length - 1;
+
+        if (localAllIssues[lastIndex].issue_id > localAllIssues[0].issue_id) {
+            localAllIssues = localAllIssues.sort(({ issue_id: issueA }, { issue_id: issueB }) => issueB - issueA);
+        } else {
+            localAllIssues = localAllIssues.sort(({ issue_id: issueA }, { issue_id: issueB }) => issueA - issueB);
+        };
+
         setAllIssues(localAllIssues);
     };
+
+
 
     function handleCloseInfoModal() {
         setIsssueInfoModal(false);
@@ -159,9 +171,7 @@ export default function Home() {
     async function handleDeleteMultipleIssues() {
         const { message } = await DeleteMultiple(multipleIssues, token);
         if (message) return console.log(message);
-        requestAllIssues();
         setMultipleIssues([]);
-
     };
 
     return (
@@ -189,7 +199,9 @@ export default function Home() {
 
                 <div className="issuesHeader">
                     <ul>
-                        <li>Item</li>
+                        <li onClick={() => sortById()}>
+                            Item
+                        </li>
                         <li>Problema</li>
                         <li>Versão</li>
                         <li>Descrição</li>

@@ -59,23 +59,6 @@ export async function EditIssue(status, id, token) {
     };
 };
 
-export async function DeleteIssue(id, token) {
-    try {
-        const requestOptions = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'Application/json',
-                'authorization': token
-            },
-        };
-        const serverRequest = await fetch(`${BASE_URL}issues/${id}`, requestOptions);
-        const { message } = await serverRequest.json();
-        if (!serverRequest.ok) return { message };
-    } catch ({ message }) {
-        return { message };
-    };
-};
-
 export async function DeleteMultiple(arrayToDelete, token) {
     try {
         const requestOptions = {
