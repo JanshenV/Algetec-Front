@@ -29,7 +29,8 @@ export default function Home() {
         userData, setUserData,
         useState, useEffect,
         allUsers, setAllUsers,
-        allIssues, setAllIssues
+        allIssues, setAllIssues,
+        tokenError, setTokenError
     } = useGlobal();
 
     const [issueModal, setIssueModal] = useState(false);
@@ -71,7 +72,7 @@ export default function Home() {
             const { user, message } = await UserProfile(token);
 
             if (message) {
-                alert('Token expirado, faça login novamente.');
+                setTokenError('Token expirado, faça login novamente.');
                 localStorage.removeItem('algetecToken');
                 if (message === 'jwt malformed' ||
                     message === 'jwt expired')
@@ -139,7 +140,6 @@ export default function Home() {
     };
 
 
-
     function handleCloseInfoModal() {
         setIsssueInfoModal(false);
         setModalInfoData({
@@ -182,6 +182,11 @@ export default function Home() {
                 title="Algetec"
                 userData={userData}
             />
+            {
+                tokenError && <h1>
+                    {tokenError}
+                </h1>
+            }
 
             <div className='issuesContainer'>
                 <div className="issuesFunctions">

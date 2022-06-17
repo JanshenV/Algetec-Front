@@ -15,7 +15,8 @@ export default function Login() {
     const {
         errors, setErrors,
         token, navigate,
-        useState, useEffect
+        useState, useEffect,
+        setTokenError
     } = useGlobal();
 
     const [loginData, setLoginData] = useState({
@@ -24,6 +25,7 @@ export default function Login() {
     });
 
     useEffect(() => {
+        setTokenError("");
         function checkToken() {
             if (token) return navigate('/home');
         };
