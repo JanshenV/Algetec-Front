@@ -73,7 +73,9 @@ export default function Home() {
             if (message) {
                 alert('Token expirado, faça login novamente.');
                 localStorage.removeItem('algetecToken');
-                if (message.includes('jwt malformed') || message.includes('jwt expired')) return navigate('/login');
+                if (message === 'jwt malformed' ||
+                    message === 'jwt expired')
+                    return navigate('/login');
             };
 
             setUserData({ ...user });
