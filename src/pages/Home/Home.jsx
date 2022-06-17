@@ -91,7 +91,7 @@ export default function Home() {
                 allUsers: allUsersApi,
                 message
             } = await AllUsersRequest(token);
-            if (message) return alert(message);
+            if (message) return console.log(message);
             setAllUsers(allUsersApi);
         };
         requestAllUsers();
