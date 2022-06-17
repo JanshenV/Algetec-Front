@@ -91,7 +91,12 @@ export default function Home() {
                 allUsers: allUsersApi,
                 message
             } = await AllUsersRequest(token);
-            if (message) return console.log(message);
+            if (message) {
+                console.log(message);
+                if (message === 'jwt malformed' ||
+                    message === 'jwt expired')
+                    return navigate('/login');
+            };
             setAllUsers(allUsersApi);
         };
         requestAllUsers();
