@@ -64,6 +64,12 @@ export default function Home() {
         });
     };
 
+    async function navigateToLogin(message) {
+        if (message === 'jwt malformed' ||
+            message === 'jwt expired')
+            return navigate('/login');
+    };
+
     useEffect(() => {
         if (!token) return navigate('/login');
 
@@ -74,9 +80,7 @@ export default function Home() {
             if (message) {
                 setTokenError('Token expirado, faça login novamente.');
                 localStorage.removeItem('algetecToken');
-                if (message === 'jwt malformed' ||
-                    message === 'jwt expired')
-                    return navigate('/login');
+                navigate('/login');
             };
 
             setUserData({ ...user });
@@ -91,12 +95,7 @@ export default function Home() {
                 allUsers: allUsersApi,
                 message
             } = await AllUsersRequest(token);
-            if (message) {
-                console.log(message);
-                if (message === 'jwt malformed' ||
-                    message === 'jwt expired')
-                    return navigate('/login');
-            };
+            if (message) return navigateToLogin(message);
             setAllUsers(allUsersApi);
         };
         requestAllUsers();
@@ -108,7 +107,7 @@ export default function Home() {
                 allIssues: allIssuesApi,
                 message
             } = await GetAllIssues(token);
-            if (message) return console.log(message);
+            if (message) return navigateToLogin(message);
             let localAllIssues = allIssuesApi.sort((a, b) => a.issue_id - b.issue_id);
             setAllIssues([...localAllIssues]);
         };
