@@ -86,7 +86,7 @@ export default function Home() {
             setUserData({ ...user });
         };
         requestUserData();
-    }, [userData]);
+    }, [userData, token]);
 
     useEffect(() => {
         async function requestAllUsers() {
