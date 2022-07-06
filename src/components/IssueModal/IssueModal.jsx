@@ -25,7 +25,8 @@ export default function IssueModal({ setIssueModal }) {
     const {
         useState, useEffect,
         token,
-        errors, setErrors
+        errors, setErrors,
+        allIssues, setAllIssues
     } = useGlobal();
 
     const [issueData, setIssueData] = useState({
@@ -83,8 +84,11 @@ export default function IssueModal({ setIssueModal }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        const { issue, message } = await CreateIssue(issueData, token);
+        const { issue: newIssue, message } = await CreateIssue(issueData, token);
         if (message) return setErrors(message);
+        let localAllIssues = [...allIssues];
+        localAllIssues.push(newIssue);
+        setAllIssues(localAllIssues);
         setIssueComplete(true);
     };
 

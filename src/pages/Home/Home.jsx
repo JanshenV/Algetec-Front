@@ -103,6 +103,7 @@ export default function Home() {
 
     useEffect(() => {
         async function requestAllIssues() {
+            if (allIssues.length) return;
             const {
                 allIssues: allIssuesApi,
                 message
@@ -112,7 +113,7 @@ export default function Home() {
             setAllIssues([...localAllIssues]);
         };
         requestAllIssues();
-    }, []);
+    }, [allIssues]);
 
     useEffect(() => {
         async function handleStatusEdit() {
