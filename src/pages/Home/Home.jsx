@@ -112,7 +112,7 @@ export default function Home() {
             setAllIssues([...localAllIssues]);
         };
         requestAllIssues();
-    }, [allIssues]);
+    }, []);
 
     useEffect(() => {
         async function handleStatusEdit() {
@@ -142,7 +142,6 @@ export default function Home() {
 
         setAllIssues(localAllIssues);
     };
-
 
     function handleCloseInfoModal() {
         setIsssueInfoModal(false);
@@ -175,9 +174,10 @@ export default function Home() {
     };
 
     async function handleDeleteMultipleIssues() {
-        const { message } = await DeleteMultiple(multipleIssues, token);
-        if (message) return console.log(message);
-        setMultipleIssues([]);
+        // const { message } = await DeleteMultiple(multipleIssues, token);
+        // if (message) return console.log(message);
+        console.log(multipleIssues)
+        // setMultipleIssues([]);
     };
 
     return (
