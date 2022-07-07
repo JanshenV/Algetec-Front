@@ -71,31 +71,41 @@ export default function IssueInfoModal({
         };
         handlePossibleStatuses();
     }, [userData]);
-
     return (
         <div className="IssueInfoModalMainContainer">
             <div className="issueInfoContainer">
-                <span>Item ID: {item}</span>
-                <span>Problema: {problema}</span>
-                <span>Versão: {versao}</span>
-                <span>Prioridade{prioridade}</span>
-                <span>
+                <div>
+                    <span>Item ID: </span>
+                    <span>{item}</span>
+                </div>
+                <div>
+                    <span>Problema:  </span>
+                    <span>{problema}</span>
+                </div>
+                <div>
+                    <span>Versão: </span>
+                    <span>{versao}</span>
+                </div>
+                <div>
+                    <span>Prioridade: </span>
+                    <span>{prioridade}</span>
+                </div>
+                <div>
                     Status:
-                    <select onChange={(e) => {
+                    <select
+                        onChange={(e) => {
                         setModalInfoData({
                             ...modalInfoData,
                             status: e.target.value
                         });
                     }}>
-                        <option value="">
-                            {status}
-                        </option>
                         {
                             possibleStatuses.length &&
                             possibleStatuses.map((item, index) => {
                                 return (
                                     <option
                                         value={item}
+                                        selected={item === modalInfoData.status ? true : false}
                                         key={index}
                                     >
                                         {item}
@@ -104,10 +114,19 @@ export default function IssueInfoModal({
                             })
                         }
                     </select>
-                </span>
-                <span>Criada em:{data}</span>
-                <span>Autor: {autor}</span>
-                <span>Atribuido à: {atribuido}</span>
+                </div>
+                <div>
+                    <span>Criada em: </span>
+                    <span>{data}</span>
+                </div>
+                <div>
+                    <span>Autor: </span>
+                    <span>{autor}</span>
+                </div>
+                <div>
+                    <span>Atribuido à: </span>
+                    <span>{atribuido}</span>
+                </div>
             </div>
 
             <button onClick={handleCloseModal}>
