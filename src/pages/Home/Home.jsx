@@ -179,7 +179,8 @@ export default function Home() {
         let localAllIssues = [...allIssues];
         let sortMultipleIssues = multipleIssues.sort((issueA, issueB) => issueA - issueB);
         const { message } = await DeleteMultiple(multipleIssues, token);
-        if (!message.includes('deletadas')) return console.log(message);
+        console.log(message);
+        if (!message.includes('deletadas')) return alert(message);
         localAllIssues = localAllIssues.filter(issue => !sortMultipleIssues.includes(issue.issue_id));
         setAllIssues(localAllIssues);
         setMultipleIssues([]);
@@ -244,7 +245,7 @@ export default function Home() {
                                         type="checkbox"
                                         value={item.issue_id}
                                         checked={multipleIssues.includes(item.issue_id) ? true : false}
-                                        onClick={(e) => handleArrayMultipleIssues(e)}
+                                        onChange={(e) => handleArrayMultipleIssues(e)}
                                     />
                                 </div>
                                 <div>{item.issue_id}</div>
