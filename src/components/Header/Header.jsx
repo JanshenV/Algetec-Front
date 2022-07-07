@@ -27,30 +27,6 @@ export default function Header({ title }) {
         setErrors
     } = useGlobal();
 
-    const [onHover, setOnHover] = useState({
-        profile: false,
-        logout: false
-    });
-
-
-    function handleOnHover(field) {
-        if (field === 'profile') {
-            const localProfile = onHover.profile;
-            setOnHover({
-                ...onHover,
-                [field]: !localProfile
-            });
-            return;
-        };
-        if (field === 'logout') {
-            const localLogout = onHover.logout;
-            setOnHover({
-                ...onHover,
-                [field]: !localLogout
-            });
-            return;
-        };
-    };
 
     function handleLogout() {
         navigate('/login');
@@ -66,16 +42,8 @@ export default function Header({ title }) {
             </h1>
             <div className="userProfileContainer">
                 <div className='iconAndMessage'>
-                    {
-                        onHover?.profile &&
-                        <span>
-                            Edite seu perfil
-                        </span>
-                    }
                     <UserCircleIcon
                         className='reactIcons'
-                        onMouseEnter={() => handleOnHover("profile")}
-                        onMouseLeave={() => handleOnHover("profile")}
                     />
                 </div>
                 <div className='welcomeContainer'>
@@ -90,16 +58,8 @@ export default function Header({ title }) {
 
             </div>
             <div className='iconAndMessage'>
-                {
-                    onHover.logout &&
-                    <span>
-                        Logout
-                    </span>
-                }
                 <LogoutIcon
                     className='reactIcons'
-                    onMouseEnter={() => handleOnHover("logout")}
-                    onMouseLeave={() => handleOnHover("logout")}
                     onClick={handleLogout}
                 />
             </div>
