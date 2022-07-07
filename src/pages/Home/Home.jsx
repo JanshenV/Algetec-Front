@@ -48,8 +48,7 @@ export default function Home() {
     });
 
     async function handleModalInfoData(e, item, data) {
-        e.stopPropagation();
-        if (e.target.className !== 'issues') return;
+        if (e.target.className === 'checkboxIssue' || e.target.className === 'inputCheckBoxIssue') return;
 
         setIsssueInfoModal(true);
         setModalInfoData({
@@ -257,9 +256,13 @@ export default function Home() {
                                 <div className='checkboxIssue'>
                                     <input
                                         type="checkbox"
+                                        className='inputCheckBoxIssue'
                                         value={item.issue_id}
                                         checked={multipleIssues.includes(item.issue_id) ? true : false}
-                                        onChange={(e) => handleArrayMultipleIssues(e)}
+                                        onChange={(e) => {
+                                            handleArrayMultipleIssues(e);
+                                            e.stopPropagation();
+                                        }}
                                     />
                                 </div>
                                 <div>{item.issue_id}</div>
