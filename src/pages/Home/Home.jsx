@@ -158,6 +158,14 @@ export default function Home() {
         });
     };
 
+    function selectAllIssues() {
+        let localMultipleIssues = [];
+        if (multipleIssues.length) return setMultipleIssues(localMultipleIssues);
+        
+        allIssues.forEach(({ issue_id }) => localMultipleIssues.push(issue_id));
+        setMultipleIssues(localMultipleIssues);
+    }
+
     async function handleArrayMultipleIssues(e) {
         let issueId = e.target.value;
         issueId = Number(issueId);
@@ -179,7 +187,6 @@ export default function Home() {
         let localAllIssues = [...allIssues];
         let sortMultipleIssues = multipleIssues.sort((issueA, issueB) => issueA - issueB);
         const { message } = await DeleteMultiple(multipleIssues, token);
-        console.log(message);
         if (!message.includes('deletadas')) return alert(message);
         localAllIssues = localAllIssues.filter(issue => !sortMultipleIssues.includes(issue.issue_id));
         setAllIssues(localAllIssues);
@@ -216,6 +223,13 @@ export default function Home() {
 
                 <div className="issuesHeader">
                     <ul>
+                        <div className='checkboxIssue'>
+                            <input
+                                type="checkbox"
+                                checked={(multipleIssues.length === allIssues.length) && allIssues.length > 0 ? true : false}
+                                onChange={() => selectAllIssues()}
+                            />
+                        </div>
                         <li onClick={() => sortById()}>
                             Item
                         </li>
@@ -231,7 +245,7 @@ export default function Home() {
                 </div>
 
                 {
-                    allIssues.length &&
+                    allIssues.length > 0 ?
                     allIssues.map((item, index) => {
                         let data = dateFormat(item.data, 'dd/mm/yyyy');
                         return (
@@ -259,7 +273,8 @@ export default function Home() {
                                 <div>{item.atribuido.nickname}</div>
                             </div>
                         );
-                    })
+                    }) : 
+                        <></>
                 }
             </div>
 
