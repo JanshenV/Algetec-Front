@@ -159,9 +159,10 @@ export default function Home() {
     };
 
     async function handleArrayMultipleIssues(e) {
-        const issueId = e.target.value;
+        let issueId = e.target.value;
+        issueId = Number(issueId);
         if (!issueId) return;
-        let localMultipleIssues = multipleIssues;
+        let localMultipleIssues = [...multipleIssues];
         const findExistingIssue = localMultipleIssues.find(id => id === issueId);
 
         if (findExistingIssue) {
@@ -175,10 +176,13 @@ export default function Home() {
     };
 
     async function handleDeleteMultipleIssues() {
-        // const { message } = await DeleteMultiple(multipleIssues, token);
-        // if (message) return console.log(message);
-        console.log(multipleIssues)
-        // setMultipleIssues([]);
+        let localAllIssues = [...allIssues];
+        let sortMultipleIssues = multipleIssues.sort((issueA, issueB) => issueA - issueB);
+        const { message } = await DeleteMultiple(multipleIssues, token);
+        if (!message.includes('deletadas')) return console.log(message);
+        localAllIssues = localAllIssues.filter(issue => !sortMultipleIssues.includes(issue.issue_id));
+        setAllIssues(localAllIssues);
+        setMultipleIssues([]);
     };
 
     return (
@@ -239,7 +243,8 @@ export default function Home() {
                                     <input
                                         type="checkbox"
                                         value={item.issue_id}
-                                        onChange={(e) => handleArrayMultipleIssues(e)}
+                                        checked={multipleIssues.includes(item.issue_id) ? true : false}
+                                        onClick={(e) => handleArrayMultipleIssues(e)}
                                     />
                                 </div>
                                 <div>{item.issue_id}</div>

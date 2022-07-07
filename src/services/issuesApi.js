@@ -71,7 +71,8 @@ export async function DeleteMultiple(arrayToDelete, token) {
         };
         const serverRequest = await fetch(`${BASE_URL}multiple/issues`, requestOptions);
         const { message } = await serverRequest.json();
-        if (!serverRequest.ok) return { message };
+
+        return { message };
     } catch ({ message }) {
         return { message };
     };
